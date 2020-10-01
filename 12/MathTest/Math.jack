@@ -1,0 +1,314 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Math.jack
+
+/**
+ * A library of commonly used mathematical functions.
+ * Note: Jack compilers implement multiplication and division using OS method calls.
+ */
+class Math {
+
+	static Array bitArray;
+	
+    /** Initializes the library. */
+    function void init() {
+		
+		
+		let bitArray = Array.new(16);
+		let bitArray[15] = 1; //6
+		let bitArray[14] = 2; // 12
+		let bitArray[13] = 4; // 24
+		let bitArray[12] = 8; // 48
+		let bitArray[11] = 16; // 96
+		let bitArray[10] = 32;
+		let bitArray[9] = 64;
+		let bitArray[8] = 128;
+		let bitArray[7] = 256;
+		let bitArray[6] = 512;
+		let bitArray[5] = 1024;
+		let bitArray[4] = 2048;
+		let bitArray[3] = 4096;
+		let bitArray[2] = 8192;
+		let bitArray[1] = 16384;
+		//let bitArray[0] = 32767;
+	
+	
+		return;
+    }
+
+    /** Returns the absolute value of x. */
+    function int abs(int x) {
+		if(x<0)
+		{
+			return -x;
+		}
+		else
+		{
+		return(x);
+		}	
+    }
+
+    /** Returns the product of x and y. 
+     *  When a Jack compiler detects the multiplication operator '*' in the 
+     *  program's code, it handles it by invoking this method. In other words,
+     *  the Jack expressions x*y and multiply(x,y) return the same value.
+     */
+    function int multiply(int x, int y) {
+
+		var int i;
+		var int shiftedX;
+		var int sum;
+		var int yB;
+		
+		let i = 15;
+		let sum = 0;
+		let shiftedX = x;	
+		
+		let yB = Math.abs(y);
+	
+		
+		while(i > 0)
+		{
+			
+			if( Math.abs(Math.bit(yB,i)) = 1)
+			{
+				let sum = sum +shiftedX;
+
+			}
+			
+			let shiftedX = shiftedX + shiftedX;
+				
+			let i = i-1;
+		}
+		if(y<0){
+			return -sum;
+		}
+		else{
+			return sum;
+		}
+		
+		
+    }
+
+    /** Returns the integer part of x/y.
+     *  When a Jack compiler detects the multiplication operator '/' in the 
+     *  program's code, it handles it by invoking this method. In other words,
+     *  the Jack expressions x/y and divide(x,y) return the same value.
+     */
+    function int divide(int x, int y) {
+		var int lenX; // 5
+		var String strX;
+		var int i;
+		var int Divisor;
+		var int totalDivisor;
+		var int currentDecile;
+		var String divString;
+		var int tempDivisor;
+		var int xB;
+		var int yB;
+		var String divisorString;
+		var String currentDecileString;
+		var int comparator;
+		
+		let currentDecile = 1;
+		let strX = String.new(8);
+		let divString = String.new(8);
+		let divisorString = String.new(9);
+		let currentDecileString = String.new(8);
+				
+		let lenX = strX.length();
+		let i = 0;
+		let totalDivisor = 0;
+		
+		
+		let xB = Math.abs(x);
+		let yB = Math.abs(y);
+		
+		
+		if(xB = yB)
+		{
+			
+			if(((x >-1) & (y >-1)) | ( (x<0) & (y<0) ))
+			{
+			return 1;
+			}
+			else
+			{
+				return -1;
+			}
+		}
+		
+		
+		do strX.setInt(xB);
+		do divisorString.appendChar(strX.charAt(0));
+		do currentDecileString.appendChar(49);
+		
+		while(i < (strX.length()-1))
+		{		
+			do divisorString.appendChar(48);
+			do currentDecileString.appendChar(48);
+			
+			let i = i +1 ;
+			
+		}
+
+		let Divisor = divisorString.intValue();
+		let currentDecile = currentDecileString.intValue();
+	
+				
+				
+		let i = 0;
+
+		while (xB > yB)
+		{
+
+			let comparator = Math.multiply(Divisor,yB);
+		
+			
+			if ( ((comparator < xB) | (comparator = xB)) & (comparator>2))
+			{
+				let totalDivisor = totalDivisor + Divisor;
+				let xB = xB - Math.multiply(Divisor,yB);
+
+				do divString.setInt(currentDecile);
+				do divString.eraseLastChar();
+				let tempDivisor = divString.intValue();
+				let currentDecile = tempDivisor;
+				let Divisor = Math.multiply(tempDivisor, 9);
+
+			}
+			else
+			{
+				if((Divisor - currentDecile) < 1){
+					do divString.setInt(currentDecile);
+					do divString.eraseLastChar();
+					let tempDivisor = divString.intValue();
+					let currentDecile = tempDivisor;					
+				}
+				let Divisor = Divisor - currentDecile;
+			}
+
+			if((xB = 0) |(xB = 1) | (Divisor=1) )
+			{ 			
+				if(((x >-1) & (y >-1)) | ( (x<0) & (y<0) ))
+				{
+					return totalDivisor;
+				}
+				else{
+					return -totalDivisor;
+				}
+			}
+			if(currentDecile = 0)
+			{			
+				return currentDecile;
+			}
+		}
+		
+					
+		if(((x >-1) & (y >-1)) | ( (x<0) & (y<0) ))
+		{			
+		return totalDivisor;
+		}
+		else{
+		return -totalDivisor;
+		}
+		
+    }
+
+    /** Returns the integer part of the square root of x. */
+    function int sqrt(int x) {
+		var int y;
+		var int ySq;
+		var int min;
+		var int max;
+		
+		let max = Math.min(182,Math.divide(x,2));
+		let min = 0;
+		let y = max;
+		
+		if(x = 1){
+			return 1;}
+		
+		while(y < x)
+		{
+			let ySq = Math.multiply(y,y);
+			
+			if((ySq > x) | (ySq < 2)  )
+			{
+				let max = y;
+				let y = max - Math.divide((max-min),2);
+				
+			}
+			if((ySq < x) & (ySq > 0)  )
+			{
+				let min = y;
+				let y = min + Math.divide((max-min),2);
+			}
+			let ySq = Math.multiply(y,y);
+			
+			if(ySq = x)
+			{
+				return y;
+			}
+			if((ySq<x) & (ySq > 2) & (Math.multiply(y+1,y+1)>x))
+			{
+				return y;
+			}
+			if((ySq<x) & (ySq > 2) & (Math.multiply(y+1,y+1)<2))
+			{
+				return y;
+			}
+
+		}
+
+		return y;
+	}
+		
+    /** Returns the greater number. */
+    function int max(int a, int b) {
+		if(a>b){return a;}
+		if(b>a){return b;}
+		return a;
+    }
+
+    /** Returns the smaller number. */
+    function int min(int a, int b) {
+		if(a<b){return a;}
+		if(b<a){return b;}
+		return a;
+    }
+	
+	function bool bit(int x, int j){
+		var int i;
+		var bool isOne;
+		
+		let i = 1;
+		let isOne = false;
+
+			
+		while( i < 16)
+		{
+			if ((x > bitArray[i]) | (x = bitArray[i]) )
+			{
+				let isOne = true;
+				let x = x-bitArray[i];
+			}
+			else
+			{			
+				let isOne = false;
+			}
+			
+			if(i = j)
+			{
+				
+				return isOne;
+			}
+			let i = i+1;
+		
+		}
+		return false;
+	}
+	
+	
+}
