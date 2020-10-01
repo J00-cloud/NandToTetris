@@ -1,0 +1,16 @@
+class Random {
+
+   field int seed; 
+   field int varA;
+   field int varB;
+
+   /** Constructs a new square with a given location and size. */
+   constructor Random new(int counter) {
+      let seed = counter
+      return this;
+   }
+
+   /** Disposes this square. */
+   method void generate() {
+      return;
+   }

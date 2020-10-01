@@ -1,0 +1,32 @@
+
+class Main {
+
+    function void main() {
+	var int key;
+    var Game NewGame;
+	var int x;
+	
+	let x = 2;
+	do Output.printString("Click Space to Start, then up and down (inversed commands)"); 
+		while(true) {
+
+			let key = Keyboard.keyPressed();
+			//do Output.printInt(key);
+			if(key = 32){
+			do Main.clear();
+			let NewGame = Game.new();
+			do NewGame.Start();
+			}
+			
+		}
+		return;
+	}
+	
+	
+	function void clear(){
+	do Screen.clearScreen();
+	return;
+	}
+	
+}
+

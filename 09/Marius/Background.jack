@@ -1,0 +1,172 @@
+
+class Background {
+	field Square Square1;
+	field Square Square2;
+	field Square Square3;
+	field Square Square4;
+	field Square Square5;
+	field Square Square6;
+	field int counter;
+	field boolean failed;
+	field int randomCounter;
+
+	constructor Background new() {
+		let Square1 =  Square.new();
+		let Square2 =  Square.new();
+		let Square3 =  Square.new();
+		let Square4 =  Square.new();
+		let Square5 =  Square.new();
+		let Square6 =  Square.new();
+		let counter = 0;
+		let failed = false;
+      return this;
+   }
+
+	method void addBlock() {
+	var int PositionXStart;
+	
+	let PositionXStart = randomNb();
+	
+		if (~(Square1.isEnabled())){
+		do Square1.Appear(counter,PositionXStart);
+		return;
+		}
+		if (~Square2.isEnabled()){
+		do Square2.Appear(counter,PositionXStart);
+		return;
+		}
+		if (~Square3.isEnabled()){
+		do Square3.Appear(counter,PositionXStart);
+		return;
+		}
+		if (~Square4.isEnabled()){
+		do Square4.Appear(counter,PositionXStart);
+		return;
+		}
+		if (~Square5.isEnabled()){
+		do Square5.Appear(counter,PositionXStart);
+		return;
+		}
+		if (~Square6.isEnabled()){
+		do Square6.Appear(counter,PositionXStart);
+		return;
+		}
+	return;
+   }
+   
+	method boolean Advance(Marius ourMarius){
+		var int valModulo;
+		let counter = counter +1;
+		do Square1.UpdatePosition(counter);
+		do Square2.UpdatePosition(counter);
+		do Square3.UpdatePosition(counter);
+		do Square4.UpdatePosition(counter);
+		do Square5.UpdatePosition(counter);
+		do Square6.UpdatePosition(counter);
+		
+		do Background.printScore(counter);
+		
+		let valModulo = Background.modulo(counter, 72);
+		
+		if(valModulo = 1){
+		do addBlock();
+		}
+		do isCollide(Square1, ourMarius);
+		do isCollide(Square2, ourMarius);
+		do isCollide(Square3, ourMarius);
+		do isCollide(Square4, ourMarius);
+		do isCollide(Square5, ourMarius);
+		do isCollide(Square6, ourMarius);
+		
+		do Sys.wait(1);
+		
+		if (failed){
+		return false;
+		}
+		
+		do randomNb();
+		
+		return true;
+	}
+	
+	method void isCollide(Square chosenSquare, Marius chosenMarius){
+			if (chosenSquare.GetPositionX() = 80){
+				if ((chosenMarius.getY() ) < (chosenSquare.GetPositionY()+30) ){
+					if ((chosenMarius.getY() ) > (chosenSquare.GetPositionY()) ){
+					do Main.clear();
+					do Output.moveCursor(0,0);
+					do Output.printString("End of Game, score :");
+					do Output.printInt(counter);
+					let failed= true;
+					//do Sys.halt();
+					return;
+					}
+				}
+			}
+			
+			
+			if (chosenSquare.GetPositionX() = 80){
+				if ((chosenMarius.getY() + 30) < (chosenSquare.GetPositionY()+30) ){
+					if ((chosenMarius.getY() + 30) > (chosenSquare.GetPositionY()) ){
+					do Main.clear();
+					do Output.moveCursor(0,0);
+					do Output.printString("End of Game, score :");
+					do Output.printInt(counter);
+					let failed= true;
+					//do Sys.halt();
+					return;
+					}
+				}
+			}
+			
+			
+			
+		return;
+	
+	}
+	
+	
+
+	function int modulo(int val, int mod){
+		var int valA;
+		var int valModulo;
+		let valA = val;
+		let valModulo = mod;
+		while( valA > valModulo){
+		 let valA = valA - valModulo;
+		 }
+		 
+		 return valA;
+	}
+	
+	function void printScore(int inCounter){
+		var int iCounter;
+		let iCounter = inCounter;
+
+		return;
+	}
+	
+	method int randomNb(){
+	var int varA;
+	var int varB;
+	var int output;
+	
+	let randomCounter = randomCounter +1;
+	
+	if (randomCounter = 11){
+		let randomCounter = 1;
+	}
+	
+	let varA = (counter *15 + 20);
+	let varB = Background.modulo(varA,randomCounter) * 16 +1;
+	
+
+	
+	return varB;
+	
+	}
+	
+	
+
+}
+

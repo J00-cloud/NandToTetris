@@ -1,0 +1,58 @@
+
+class Game {
+	field Marius newMarius ;
+	field Background newBackground;
+	field boolean continue;
+	
+   constructor Game new() {
+	let newMarius = Marius.new();
+	let newBackground = Background.new();
+	return this;
+   }
+   
+   method void Start()
+   {
+		var int key;
+		var boolean isColliding;
+		
+		let isColliding = false;
+		
+		while(true){
+
+			let key = Keyboard.keyPressed();
+			let continue = newBackground.Advance(newMarius);
+			if(~continue){
+			return;
+			}
+			while (~(key = 0)) {
+			let key = Keyboard.keyPressed();
+				if(key = 131) 
+				{
+					do newMarius.Move(4);
+				}
+				if(key = 133) 
+				{
+				
+				do newMarius.Move(-4);
+				}
+				if(key = 27) // ESC
+				{
+					do newMarius.Move(2);
+				}
+				let continue = newBackground.Advance(newMarius);
+				if(~continue){
+					return;
+					}
+								
+				do Sys.wait(1);
+			}
+			do Sys.wait(1);
+			if(~continue){
+			return;
+			}
+		}
+		return;
+	}
+
+}
+

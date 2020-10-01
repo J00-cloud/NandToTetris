@@ -1,0 +1,53 @@
+
+class Marius {
+	field int positionX;
+	field int positionY;
+
+   constructor Marius new() {
+   let positionX = 50;
+   let positionY = 50;
+   do Show();
+      return this;
+   }
+   
+	method void Show(){
+		do Screen.setColor(true);
+		do Screen.drawRectangle(positionX, positionY,positionX+30, positionY+30);
+		do Screen.setColor(false);
+		do Screen.drawRectangle(positionX+5, positionY+5,positionX+20, positionY+20);
+		return;
+	}
+
+	method void Hide(){
+		do Screen.setColor(false);
+		do Screen.drawRectangle(positionX, positionY,positionX+30, positionY+30);
+		
+		return;
+	}
+	method int getX(){
+	return positionX;
+	}
+	method int getY(){
+	return positionY;
+	}
+
+	method void Move(int dir){ // 1 or -1
+		if ((positionY+ dir) >10){
+			if ((positionY+dir) <200){
+				do Hide();
+				let positionY = positionY + dir;
+				do Show();
+			}
+		}
+		return;
+	}
+	
+	method boolean isCollide(){
+		return false;
+	}
+	
+	
+
+
+
+}

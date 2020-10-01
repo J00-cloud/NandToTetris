@@ -1,0 +1,82 @@
+
+class Square {
+
+   field int x, y; // screen location of the square's top-left corner
+   field int size; // length of this square, in pixels
+   field boolean Enabled;
+   field int counter;
+
+   constructor Square new() {
+      let x = 200;
+      let y = 120;
+      let size = 30;
+      return this;
+   }
+
+
+	method void Appear(int inCounter, int positionX){
+		let Enabled = true;
+		let counter = inCounter;
+		do draw(positionX);
+		return;
+	}
+	
+	method int GetPositionX(){
+	return x;
+	}
+	method int GetPositionY(){
+	return y;
+	}
+	method int GetWidth(){
+	return size;
+	}
+	method int GetHeight(){
+	return size;
+	}
+
+   method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+   }
+
+   method void draw(int positionX) {
+   let y = positionX;
+      do Screen.setColor(true);
+      do Screen.drawRectangle(x, y, x + size, y + size);
+      return;
+   }
+
+   method void Hide() {
+      do Screen.setColor(false);
+      do Screen.drawRectangle(x, y, x + size, y + size);
+	  let x = 200;
+      let y = 120;
+	  let Enabled = false;
+      return;
+   }
+
+	method boolean isEnabled(){
+	return Enabled;
+	}
+	
+
+   method void UpdatePosition(int counter) {
+
+	if(Enabled){
+	
+      if (x > 1) {
+         do Screen.setColor(false);
+         do Screen.drawRectangle(x, y, x + size, y + size);
+         let x = x - 2;
+         do Screen.setColor(true);
+         do Screen.drawRectangle(x, y, x+size, y+size);
+      }
+	  if(x < 2){
+		do Hide();
+	  }
+	}
+	  
+      return;
+   }
+
+}
