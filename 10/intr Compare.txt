@@ -1,0 +1,11 @@
+"C:\Users\jonat\Dropbox\CS\3-Core Systems\From Nand to Tetris\nand2tetris\tools\TextComparer.bat"
+
+
+
+FC "C:\Users\jonat\Dropbox\CS\3-Core Systems\From Nand to Tetris\nand2tetris\projects\10\ArrayTest\Main.xml" "C:\Users\jonat\Dropbox\CS\3-Core Systems\From Nand to Tetris\nand2tetris\projects\10\ArrayTest\Main2.xml"
+
+FC "C:\Users\jonat\Dropbox\CS\3-Core Systems\From Nand to Tetris\nand2tetris\projects\10\Square\Square.xml" "C:\Users\jonat\Dropbox\CS\3-Core Systems\From Nand to Tetris\nand2tetris\projects\10\Square\Square2.xml"
+
+FC "C:\Users\jonat\Dropbox\CS\3-Core Systems\From Nand to Tetris\nand2tetris\projects\10\Square\SquareGame.xml" "C:\Users\jonat\Dropbox\CS\3-Core Systems\From Nand to Tetris\nand2tetris\projects\10\Square\SquareGame2.xml"
+
+FC "C:\Users\jonat\Dropbox\CS\3-Core Systems\From Nand to Tetris\nand2tetris\projects\10\Square\Main.xml" "C:\Users\jonat\Dropbox\CS\3-Core Systems\From Nand to Tetris\nand2tetris\projects\10\Square\Main2.xml"
