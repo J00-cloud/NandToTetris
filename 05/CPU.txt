@@ -1,0 +1,32 @@
+	instr : ixxaccccccdddjjj (i0 =A, i1=C, a=AorMRegister ,c = comp(instr), d=destination,j=jump)
+	instruction[15] = AorC_instruction
+	instruction[12]=AorMRegister
+	instruction[6..11]=type_instruction
+	instruction[3..5]=destination // which register will get output
+	instruction[0..2]=jumpInstr
+
+	if AorC_instruction = A_instruction
+		write instruction[0..16] in register A
+	else :
+		compute type_instruction with ALU:
+			(A or M) & D registers = (x) & y
+			zx, nx, zy, ny, f, = with info from type_instruction
+			return outM;
+
+	if jumpInstr not null
+		compute is condition fron jump true using zr, ng
+		if condition form jump = true
+			PC = value in A, otherwise PC=PC+1
+			return PC
+			
+			
+				// D=D+1 = 110111 (cccccc)
+	//M=1    1110111111001000 = 001 M
+	//A=1	 1110111111100000 = 100 A instruction[5]
+	//D=1    1110111111010000 = 010 D
+	
+	//D=D+1  1110011111010000 = x+1 , push to D
+	//D=A+1  1110110111010000 = instruction[12]:a or M
+	//D=M+1  1111110111010000 
+	//M=D+1  1110011111001000
+	//A=D+1  1110011111100000
